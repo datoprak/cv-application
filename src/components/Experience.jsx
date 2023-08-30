@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Experience({
   experience,
@@ -10,8 +11,9 @@ export default function Experience({
 
   const handleChange = e => {
     const { name, value } = e.target;
+    const id = uuidv4();
     setExperience(prevExp => {
-      return { ...prevExp, [name]: value };
+      return { ...prevExp, [name]: value, id: id };
     });
   };
 
@@ -20,6 +22,7 @@ export default function Experience({
       setTotalExp(prevExp => [...prevExp, experience]);
       setIsEditMode(false);
       setExperience({
+        id: "",
         company: "",
         title: "",
         startDate: "",

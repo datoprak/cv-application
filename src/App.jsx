@@ -15,6 +15,7 @@ function App() {
   });
   const [totalEdu, setTotalEdu] = useState([]);
   const [education, setEducation] = useState({
+    id:"",
     school: "",
     degree: "",
     startDate: "",
@@ -23,6 +24,7 @@ function App() {
   });
   const [totalExp, setTotalExp] = useState([]);
   const [experience, setExperience] = useState({
+    id:"",
     company: "",
     title: "",
     startDate: "",

@@ -13,7 +13,7 @@ export default function Cv({ person, totalEdu, totalExp }) {
         {totalEdu.length > 0 &&
           totalEdu.map(edu => {
             return (
-              <div className="edu">
+              <div className="edu" key={edu.id}>
                 <div className="date">
                   {edu.startDate} - {edu.endDate}
                 </div>
@@ -29,7 +29,7 @@ export default function Cv({ person, totalEdu, totalExp }) {
         {totalExp.length > 0 &&
           totalExp.map(exp => {
             return (
-              <div className="exp">
+              <div className="exp" key={exp.id}>
                 <div className="date">
                   {exp.startDate} - {exp.endDate}
                 </div>

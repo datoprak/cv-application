@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Education({
   education,
@@ -10,8 +11,9 @@ export default function Education({
 
   const handleChange = e => {
     const { name, value } = e.target;
+    const id = uuidv4();
     setEducation(prevEdu => {
-      return { ...prevEdu, [name]: value };
+      return { ...prevEdu, [name]: value, id: id };
     });
   };
 
@@ -20,6 +22,7 @@ export default function Education({
       setTotalEdu(prevEdu => [...prevEdu, education]);
       setIsEditMode(false);
       setEducation({
+        id: "",
         school: "",
         degree: "",
         startDate: "",
