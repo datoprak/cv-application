@@ -11,15 +11,30 @@ export default function Education({
 
   const handleChange = e => {
     const { name, value } = e.target;
-    const id = uuidv4();
     setEducation(prevEdu => {
-      return { ...prevEdu, [name]: value, id: id };
+      return { ...prevEdu, [name]: value };
     });
   };
 
   const handleEdit = type => {
     if (type === "save") {
-      setTotalEdu(prevEdu => [...prevEdu, education]);
+      if (!education.id) {
+        const uid = uuidv4();
+        const copyEdu = { ...education };
+        copyEdu.id = uid;
+        setEducation(copyEdu);
+        const copyTotal = [...totalEdu];
+        copyTotal.push(copyEdu);
+        setTotalEdu(copyTotal);
+      } else {
+        let editEdu = totalEdu.find(edu => edu.id === type);
+        editEdu = [...editEdu, ...education];
+        setEducation(editEdu);
+        const copy = [...totalEdu];
+        const index = copy.indexOf(editEdu);
+        copy[index] = [...education];
+        setTotalEdu(copy);
+      }
       setIsEditMode(false);
       setEducation({
         id: "",
@@ -33,6 +48,12 @@ export default function Education({
       setIsEditMode(false);
     } else if (type === "delete") {
       setIsEditMode(false);
+    } else {
+      setIsEditMode(true);
+      const editEdu = totalEdu.find(edu => edu.id === type);
+      // const index = totalEdu.indexOf(editEdu);
+      // setTotalEdu(prev => prev.splice(index, 1));
+      setEducation(editEdu);
     }
   };
 
@@ -95,10 +116,10 @@ export default function Education({
           {totalEdu.length > 0 &&
             totalEdu.map(edu => {
               return (
-                <>
+                <div key={edu.id}>
                   <div className="school-name">{edu.school}</div>
-                  <button>EDIT</button>
-                </>
+                  <button onClick={() => handleEdit(edu.id)}>EDIT</button>
+                </div>
               );
             })}
           <button

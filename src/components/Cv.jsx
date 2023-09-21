@@ -17,7 +17,10 @@ export default function Cv({ person, totalEdu, totalExp }) {
                 <div className="date">
                   {edu.startDate} - {edu.endDate}
                 </div>
-                <div className="school">{edu.school}</div>
+                <div className="school" style={{ color: "red" }}>
+                  {edu.school}
+                  {edu.id}
+                </div>
                 <div className="location">{edu.location}</div>
                 <div className="degree">{edu.degree}</div>
               </div>
