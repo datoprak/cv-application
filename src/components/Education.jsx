@@ -44,7 +44,20 @@ export default function Education({
   };
 
   const deleteEntry = () => {
+    const copyTotal = [...totalEdu];
+    const deleteEdu = copyTotal.find(edu => edu.id === education.id);
+    const index = copyTotal.indexOf(deleteEdu);
+    copyTotal.splice(index, 1);
+    setTotalEdu(copyTotal);
     setIsEditMode(false);
+    setEducation({
+      id: "",
+      school: "",
+      degree: "",
+      startDate: "",
+      endDate: "",
+      location: "",
+    });
   };
 
   const cancelEntry = () => {
