@@ -11,30 +11,65 @@ export default function Experience({
 
   const handleChange = e => {
     const { name, value } = e.target;
-    const id = uuidv4();
     setExperience(prevExp => {
-      return { ...prevExp, [name]: value, id: id };
+      return { ...prevExp, [name]: value };
     });
   };
 
-  const handleEdit = type => {
-    if (type === "save") {
-      setTotalExp(prevExp => [...prevExp, experience]);
-      setIsEditMode(false);
-      setExperience({
-        id: "",
-        company: "",
-        title: "",
-        startDate: "",
-        endDate: "",
-        location: "",
-        description: "",
-      });
-    } else if (type === "cancel") {
-      setIsEditMode(false);
-    } else if (type === "delete") {
-      setIsEditMode(false);
+  const saveEntry = () => {
+    if (!experience.id) {
+      const uid = uuidv4();
+      const copyExp = { ...experience };
+      copyExp.id = uid;
+      setExperience(copyExp);
+      const copyTotal = [...totalExp];
+      copyTotal.push(copyExp);
+      setTotalExp(copyTotal);
+    } else {
+      const copy = [...totalExp];
+      const copyExp = copy.find(exp => exp.id === experience.id);
+      const index = copy.indexOf(copyExp);
+      copy[index] = { ...experience };
+      setTotalExp(copy);
     }
+    setIsEditMode(false);
+    setExperience({
+      id: "",
+      company: "",
+      title: "",
+      startDate: "",
+      endDate: "",
+      location: "",
+      description: "",
+    });
+  };
+
+  const deleteEntry = () => {
+    const copyTotal = [...totalExp];
+    const deleteExp = copyTotal.find(exp => exp.id === experience.id);
+    const index = copyTotal.indexOf(deleteExp);
+    copyTotal.splice(index, 1);
+    setTotalExp(copyTotal);
+    setIsEditMode(false);
+    setExperience({
+      id: "",
+      company: "",
+      title: "",
+      startDate: "",
+      endDate: "",
+      location: "",
+      description: "",
+    });
+  };
+
+  const cancelEntry = () => {
+    setIsEditMode(false);
+  };
+
+  const handleEdit = id => {
+    setIsEditMode(true);
+    let editExp = totalExp.find(exp => exp.id === id);
+    setExperience(editExp);
   };
 
   return (
@@ -87,19 +122,19 @@ export default function Experience({
               onChange={handleChange}
             />
           </label>
-          <button onClick={() => handleEdit("save")}>Save</button>
-          <button onClick={() => handleEdit("cancel")}>Cancel</button>
-          <button onClick={() => handleEdit("delete")}>Delete</button>
+          <button onClick={saveEntry}>Save</button>
+          <button onClick={cancelEntry}>Cancel</button>
+          <button onClick={deleteEntry}>Delete</button>
         </form>
       ) : (
         <>
           {totalExp.length > 0 &&
             totalExp.map(exp => {
               return (
-                <>
-                  <div className="company-name">{exp.school}</div>
-                  <button>EDIT</button>
-                </>
+                <div key={exp.id}>
+                  <div className="company-name">{exp.company}</div>
+                  <button onClick={() => handleEdit(exp.id)}>EDIT</button>
+                </div>
               );
             })}
           <button
