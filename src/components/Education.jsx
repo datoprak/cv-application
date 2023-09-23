@@ -16,45 +16,45 @@ export default function Education({
     });
   };
 
-  const handleEdit = type => {
-    if (type === "save") {
-      if (!education.id) {
-        const uid = uuidv4();
-        const copyEdu = { ...education };
-        copyEdu.id = uid;
-        setEducation(copyEdu);
-        const copyTotal = [...totalEdu];
-        copyTotal.push(copyEdu);
-        setTotalEdu(copyTotal);
-      } else {
-        let editEdu = totalEdu.find(edu => edu.id === type);
-        editEdu = [...editEdu, ...education];
-        setEducation(editEdu);
-        const copy = [...totalEdu];
-        const index = copy.indexOf(editEdu);
-        copy[index] = [...education];
-        setTotalEdu(copy);
-      }
-      setIsEditMode(false);
-      setEducation({
-        id: "",
-        school: "",
-        degree: "",
-        startDate: "",
-        endDate: "",
-        location: "",
-      });
-    } else if (type === "cancel") {
-      setIsEditMode(false);
-    } else if (type === "delete") {
-      setIsEditMode(false);
+  const saveEntry = () => {
+    if (!education.id) {
+      const uid = uuidv4();
+      const copyEdu = { ...education };
+      copyEdu.id = uid;
+      setEducation(copyEdu);
+      const copyTotal = [...totalEdu];
+      copyTotal.push(copyEdu);
+      setTotalEdu(copyTotal);
     } else {
-      setIsEditMode(true);
-      const editEdu = totalEdu.find(edu => edu.id === type);
-      // const index = totalEdu.indexOf(editEdu);
-      // setTotalEdu(prev => prev.splice(index, 1));
-      setEducation(editEdu);
+      const copy = [...totalEdu];
+      const copyEdu = copy.find(edu => edu.id === education.id);
+      const index = copy.indexOf(copyEdu);
+      copy[index] = { ...education };
+      setTotalEdu(copy);
     }
+    setIsEditMode(false);
+    setEducation({
+      id: "",
+      school: "",
+      degree: "",
+      startDate: "",
+      endDate: "",
+      location: "",
+    });
+  };
+
+  const deleteEntry = () => {
+    setIsEditMode(false);
+  };
+
+  const cancelEntry = () => {
+    setIsEditMode(false);
+  };
+
+  const handleEdit = id => {
+    setIsEditMode(true);
+    let editEdu = totalEdu.find(edu => edu.id === id);
+    setEducation(editEdu);
   };
 
   return (
@@ -107,9 +107,9 @@ export default function Education({
               onChange={handleChange}
             />
           </label>
-          <button onClick={() => handleEdit("save")}>Save</button>
-          <button onClick={() => handleEdit("cancel")}>Cancel</button>
-          <button onClick={() => handleEdit("delete")}>Delete</button>
+          <button onClick={() => saveEntry()}>Save</button>
+          <button onClick={() => cancelEntry()}>Cancel</button>
+          <button onClick={() => deleteEntry()}>Delete</button>
         </form>
       ) : (
         <>
