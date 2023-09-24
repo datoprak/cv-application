@@ -7,6 +7,7 @@ import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Cv from "./components/Cv";
 import "./App.css";
+import { Button } from "antd";
 
 const EXAMPLE_CV = {
   person: {
@@ -103,8 +104,8 @@ function App() {
   };
 
   const generatePDF = () => {
-    const cv = document.querySelector(".cv");
     setLoading(true);
+    const cv = document.querySelector(".cv");
     html2canvas(cv).then(canvas => {
       const imgData = canvas.toDataURL("img/png");
       const doc = new jsPDF("portrait", "mm", "a4", true);
@@ -120,11 +121,15 @@ function App() {
     <div className="App">
       <section className="edit-section">
         <div className="buttons">
-          <button onClick={generatePDF} disabled={loading}>
+          <Button className="download-btn" type="primary" loading={loading} onClick={generatePDF}>
             DOWNLOAD
-          </button>
-          <button onClick={clearCv}>CLEAR</button>
-          <button onClick={loadExample}>LOAD EXAMPLE</button>
+          </Button>
+          <Button type="primary" danger onClick={clearCv}>
+            CLEAR
+          </Button>
+          <Button type="primary" onClick={loadExample}>
+            LOAD EXAMPLE
+          </Button>
         </div>
         <GeneralInfo person={person} setPerson={setPerson} />
         <Education

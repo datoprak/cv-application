@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { Button, Form, Input } from "antd";
 
 export default function GeneralInfo({ person, setPerson }) {
   const [isEditMode, setIsEditMode] = useState(true);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
+  const onFinish = values => {
     setPerson(prevPerson => {
-      return { ...prevPerson, [name]: value };
+      return { ...prevPerson, ...values };
     });
+    setIsEditMode(false);
   };
 
   return (
@@ -15,52 +16,94 @@ export default function GeneralInfo({ person, setPerson }) {
       <h2>General Info</h2>
       {isEditMode ? (
         <>
-          <label>
-            First Name:&#9;
-            <input
-              type="text"
+          <Form
+            name="general-info-form"
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            style={{
+              maxWidth: 600,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            autoComplete="off"
+          >
+            <Form.Item
+              label="First Name"
               name="firstName"
-              value={person.firstName}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Last Name:&#9;
-            <input
-              type="text"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your first name!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Last Name"
               name="lastName"
-              value={person.lastName}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            E-mail:&#9;
-            <input
-              type="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your last name!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="E-mail"
               name="email"
-              value={person.email}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Phone:&#9;
-            <input
-              type="tel"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your e-mail!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Phone"
               name="phone"
-              value={person.phone}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Address:&#9;
-            <input
-              type="text"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your phone number!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Address"
               name="address"
-              value={person.address}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={() => setIsEditMode(false)}>SAVE</button>
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your address!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Button type="primary" htmlType="submit">
+                SAVE
+              </Button>
+            </Form.Item>
+          </Form>
         </>
       ) : (
         <>
@@ -69,7 +112,9 @@ export default function GeneralInfo({ person, setPerson }) {
           <div className="email">{person.email}</div>
           <div className="phone">{person.phone}</div>
           <div className="address">{person.address}</div>
-          <button onClick={() => setIsEditMode(true)}>EDIT</button>
+          <Button type="primary" onClick={() => setIsEditMode(true)}>
+            EDIT
+          </Button>
         </>
       )}
     </section>

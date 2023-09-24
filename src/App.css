@@ -16,6 +16,21 @@ h2 {
   background-color: #e5e7eb;
 }
 
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.ant-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.download-btn {
+  background-color: #22c55e;
+}
+
 .edit-section {
   display: flex;
   flex-direction: column;

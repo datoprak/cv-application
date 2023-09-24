@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Button, Form, Input, DatePicker } from "antd";
 
 export default function Education({
   education,
@@ -9,28 +10,36 @@ export default function Education({
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
+  const onFinish = values => {
+    const { school, degree, startDate, endDate, location } = values;
     setEducation(prevEdu => {
-      return { ...prevEdu, [name]: value };
+      return {
+        ...prevEdu,
+        school,
+        degree,
+        startDate: startDate.year(),
+        endDate: endDate.year(),
+        location,
+      };
     });
+    saveEntry(values);
   };
 
-  const saveEntry = () => {
+  const saveEntry = values => {
     if (!education.id) {
       const uid = uuidv4();
-      const copyEdu = { ...education };
+      const copyEdu = { ...values };
       copyEdu.id = uid;
       setEducation(copyEdu);
       const copyTotal = [...totalEdu];
       copyTotal.push(copyEdu);
       setTotalEdu(copyTotal);
     } else {
-      const copy = [...totalEdu];
-      const copyEdu = copy.find(edu => edu.id === education.id);
-      const index = copy.indexOf(copyEdu);
-      copy[index] = { ...education };
-      setTotalEdu(copy);
+      const copyTotal = [...totalEdu];
+      const copyEdu = copyTotal.find(edu => edu.id === education.id);
+      const index = copyTotal.indexOf(copyEdu);
+      copyTotal[index] = { ...values, id: education.id };
+      setTotalEdu(copyTotal);
     }
     setIsEditMode(false);
     setEducation({
@@ -65,65 +74,123 @@ export default function Education({
   };
 
   const handleEdit = id => {
-    setIsEditMode(true);
-    let editEdu = totalEdu.find(edu => edu.id === id);
+    const editEdu = totalEdu.find(edu => edu.id === id);
     setEducation(editEdu);
+    setIsEditMode(true);
   };
 
   return (
     <section className="education">
       <h2>Education</h2>
       {isEditMode ? (
-        <form>
-          <label>
-            School
-            <input
-              type="text"
-              name="school"
-              value={education.school}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Degree
-            <input
-              type="text"
-              name="degree"
-              value={education.degree}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Start Date
-            <input
-              type="text"
-              name="startDate"
-              value={education.startDate}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            End Date
-            <input
-              type="text"
-              name="endDate"
-              value={education.endDate}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Location
-            <input
-              type="text"
-              name="location"
-              value={education.location}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={() => saveEntry()}>Save</button>
-          <button onClick={() => cancelEntry()}>Cancel</button>
-          <button onClick={() => deleteEntry()}>Delete</button>
-        </form>
+        <Form
+          name="edu-form"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 16,
+          }}
+          style={{
+            maxWidth: 600,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="School"
+            name="school"
+            rules={[
+              {
+                required: true,
+                message: "Please input your school!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Degree"
+            name="degree"
+            rules={[
+              {
+                required: true,
+                message: "Please input your degree!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Start Date"
+            name="startDate"
+            rules={[
+              {
+                required: true,
+                message: "Please input your start date of education!",
+              },
+            ]}
+          >
+            <DatePicker picker="year" />
+          </Form.Item>
+          <Form.Item
+            label="End Date"
+            name="endDate"
+            rules={[
+              {
+                required: true,
+                message: "Please input your end date of education!",
+              },
+            ]}
+          >
+            <DatePicker picker="year" />
+          </Form.Item>
+          <Form.Item
+            label="Location"
+            name="location"
+            rules={[
+              {
+                required: true,
+                message: "Please input your location of education!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button type="primary" htmlType="submit">
+              SAVE
+            </Button>
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button type="primary" onClick={cancelEntry}>
+              CANCEL
+            </Button>
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button type="primary" danger onClick={deleteEntry}>
+              DELETE
+            </Button>
+          </Form.Item>
+        </Form>
       ) : (
         <>
           {totalEdu.length > 0 &&
@@ -131,17 +198,15 @@ export default function Education({
               return (
                 <div key={edu.id}>
                   <div className="school-name">{edu.school}</div>
-                  <button onClick={() => handleEdit(edu.id)}>EDIT</button>
+                  <Button type="primary" onClick={() => handleEdit(edu.id)}>
+                    EDIT
+                  </Button>
                 </div>
               );
             })}
-          <button
-            onClick={() => {
-              setIsEditMode(!isEditMode);
-            }}
-          >
+          <Button type="primary" onClick={() => setIsEditMode(!isEditMode)}>
             ADD
-          </button>
+          </Button>
         </>
       )}
     </section>
