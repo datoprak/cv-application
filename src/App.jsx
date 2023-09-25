@@ -5,67 +5,15 @@ import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Cv from "./components/Cv";
 import Navbar from "./components/Navbar";
+import EXAMPLE_CV from "./util/example";
 import "./styles/App.css";
 
-const EXAMPLE_CV = {
-  person: {
-    firstName: "John",
-    lastName: "Smith",
-    email: "johnsmith@example.com",
-    phone: "123456798",
-    address: "London, UK",
-  },
-  totalEdu: [
-    {
-      id: "1edu",
-      school: "University of Cambridge",
-      degree: "Bachelor of Computer Engineering",
-      startDate: "2010",
-      endDate: "2014",
-      location: "Cambridge, UK",
-    },
-  ],
-  totalExp: [
-    {
-      id: "1exp",
-      company: "Microsoft",
-      title: "Frontend Developer",
-      startDate: "2014",
-      endDate: "2023",
-      location: "Washington, US",
-      description:
-        "Determining the structure and design of web pages, striking a balance between functional and aesthetic design, and ensuring web design is optimized for smartphones.",
-    },
-  ],
-};
-
 function App() {
-  const [person, setPerson] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-  });
-  const [totalEdu, setTotalEdu] = useState([]);
-  const [education, setEducation] = useState({
-    id: "",
-    school: "",
-    degree: "",
-    startDate: "",
-    endDate: "",
-    location: "",
-  });
-  const [totalExp, setTotalExp] = useState([]);
-  const [experience, setExperience] = useState({
-    id: "",
-    company: "",
-    title: "",
-    startDate: "",
-    endDate: "",
-    location: "",
-    description: "",
-  });
+  const [person, setPerson] = useState(EXAMPLE_CV.person);
+  const [totalEdu, setTotalEdu] = useState(EXAMPLE_CV.totalEdu);
+  const [education, setEducation] = useState(EXAMPLE_CV.totalEdu[0]);
+  const [totalExp, setTotalExp] = useState(EXAMPLE_CV.totalExp);
+  const [experience, setExperience] = useState(EXAMPLE_CV.totalExp[0]);
 
   const loadExample = () => {
     setPerson(EXAMPLE_CV.person);
