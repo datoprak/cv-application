@@ -177,36 +177,23 @@ export default function Experience({
           >
             <Input />
           </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              SAVE
-            </Button>
-          </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" onClick={cancelEntry}>
-              CANCEL
-            </Button>
-          </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" danger onClick={deleteEntry}>
-              DELETE
-            </Button>
-          </Form.Item>
+          <div className="edit-mode-btns">
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                SAVE
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" onClick={cancelEntry}>
+                CANCEL
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" danger onClick={deleteEntry}>
+                DELETE
+              </Button>
+            </Form.Item>
+          </div>
         </Form>
       ) : (
         <>

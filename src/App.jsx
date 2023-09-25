@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
 
 import GeneralInfo from "./components/GeneralInfo";
 import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Cv from "./components/Cv";
+import Navbar from "./components/Navbar";
 import "./App.css";
-import { Button } from "antd";
 
 const EXAMPLE_CV = {
   person: {
@@ -68,7 +66,6 @@ function App() {
     location: "",
     description: "",
   });
-  const [loading, setLoading] = useState(false);
 
   const loadExample = () => {
     setPerson(EXAMPLE_CV.person);
@@ -103,51 +100,29 @@ function App() {
     });
   };
 
-  const generatePDF = () => {
-    setLoading(true);
-    const cv = document.querySelector(".cv");
-    html2canvas(cv).then(canvas => {
-      const imgData = canvas.toDataURL("img/png");
-      const doc = new jsPDF("portrait", "mm", "a4", true);
-      const width = doc.internal.pageSize.getWidth();
-      const height = doc.internal.pageSize.getHeight();
-      doc.addImage(imgData, "PNG", 0, 0, width, height);
-      doc.save("cv.pdf");
-      setLoading(false);
-    });
-  };
-
   return (
     <div className="App">
-      <section className="edit-section">
-        <div className="buttons">
-          <Button className="download-btn" type="primary" loading={loading} onClick={generatePDF}>
-            DOWNLOAD
-          </Button>
-          <Button type="primary" danger onClick={clearCv}>
-            CLEAR
-          </Button>
-          <Button type="primary" onClick={loadExample}>
-            LOAD EXAMPLE
-          </Button>
-        </div>
-        <GeneralInfo person={person} setPerson={setPerson} />
-        <Education
-          education={education}
-          setEducation={setEducation}
-          totalEdu={totalEdu}
-          setTotalEdu={setTotalEdu}
-        />
-        <Experience
-          experience={experience}
-          setExperience={setExperience}
-          totalExp={totalExp}
-          setTotalExp={setTotalExp}
-        />
-      </section>
-      <section className="cv-section">
-        <Cv person={person} totalEdu={totalEdu} totalExp={totalExp} />
-      </section>
+      <Navbar clearCv={clearCv} loadExample={loadExample}></Navbar>
+      <main>
+        <section className="edit-section">
+          <GeneralInfo person={person} setPerson={setPerson} />
+          <Education
+            education={education}
+            setEducation={setEducation}
+            totalEdu={totalEdu}
+            setTotalEdu={setTotalEdu}
+          />
+          <Experience
+            experience={experience}
+            setExperience={setExperience}
+            totalExp={totalExp}
+            setTotalExp={setTotalExp}
+          />
+        </section>
+        <section className="cv-section">
+          <Cv person={person} totalEdu={totalEdu} totalExp={totalExp} />
+        </section>
+      </main>
     </div>
   );
 }
