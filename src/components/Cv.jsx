@@ -1,5 +1,11 @@
 export default function Cv({ person, totalEdu, totalExp }) {
-  let fullName = `${person.firstName} ${person.lastName}`;
+  const fullName = `${person.firstName} ${person.lastName}`;
+
+  const getYear = value => {
+    if(typeof value === "string") return value
+    else return value.year()
+  };
+
   return (
     <div className="cv">
       <div className="header">
@@ -15,7 +21,7 @@ export default function Cv({ person, totalEdu, totalExp }) {
             return (
               <div className="edu" key={edu.id}>
                 <div className="date">
-                  {edu.startDate.year()} - {edu.endDate.year()}
+                  {getYear(edu.startDate)}-{getYear(edu.endDate)}
                 </div>
                 <div className="school" style={{ color: "red" }}>
                   {edu.school}
@@ -34,7 +40,7 @@ export default function Cv({ person, totalEdu, totalExp }) {
             return (
               <div className="exp" key={exp.id}>
                 <div className="date">
-                  {exp.startDate} - {exp.endDate}
+                  {getYear(exp.startDate)} - {getYear(exp.endDate)}
                 </div>
                 <div className="company">{exp.company}</div>
                 <div className="location">{exp.location}</div>
