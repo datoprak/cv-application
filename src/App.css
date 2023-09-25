@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap");
 
 * {
   padding: 0;
@@ -32,7 +32,8 @@ nav {
   gap: 16px;
 }
 
-.logo, .logo > span {
+.logo,
+.logo > span {
   font-size: 3rem;
 }
 
@@ -54,6 +55,10 @@ main {
 
 .download-btn {
   background-color: #22c55e;
+}
+
+.download-btn:hover {
+  background-color: #4ade80 !important;
 }
 
 .edit-section {
@@ -82,5 +87,72 @@ main {
 .cv {
   width: 21cm;
   height: 29.7cm;
-  border: 1px solid black;
+  background-color: #fff;
+  box-shadow: 8px 8px 8px 0px #888888;
+}
+
+.header {
+  background-color: rgb(25, 49, 65);
+  color: #fff;
+  padding: 1.5cm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.other-info {
+  display: flex;
+  gap: 32px;
+}
+
+.email,
+.phone,
+.address {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.education-cv,
+.experience-cv {
+  padding: 2rem 1.5cm 0 1.5cm;
+}
+
+.edu-divider,
+.exp-divider {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.edu,
+.exp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.edu-right-side,
+.exp-right-side {
+  justify-self: end;
+}
+
+.edu-divider,
+.school,
+.exp-divider,
+.company,
+.date {
+  font-weight: 700;
+}
+
+.description,
+.degree,
+.location {
+  font-style: italic;
+  font-size: 0.8rem;
 }

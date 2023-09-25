@@ -19,7 +19,7 @@ const EXAMPLE_CV = {
     {
       id: "1edu",
       school: "University of Cambridge",
-      degree: "Degree of Bachelor",
+      degree: "Bachelor of Computer Engineering",
       startDate: "2010",
       endDate: "2014",
       location: "Cambridge, UK",
