@@ -5,7 +5,7 @@ import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Cv from "./components/Cv";
 import Navbar from "./components/Navbar";
-import EXAMPLE_CV from "./util/example";
+import { EMPTY_CV, EXAMPLE_CV } from "./util/exampleCVs";
 import "./styles/App.css";
 
 function App() {
@@ -22,30 +22,11 @@ function App() {
   };
 
   const clearCv = () => {
-    setPerson({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      address: "",
-    });
-    setTotalEdu({
-      id: "",
-      school: "",
-      degree: "",
-      startDate: "",
-      endDate: "",
-      location: "",
-    });
-    setTotalExp({
-      id: "",
-      company: "",
-      title: "",
-      startDate: "",
-      endDate: "",
-      location: "",
-      description: "",
-    });
+    setPerson(EMPTY_CV.person);
+    setTotalEdu([]);
+    setTotalExp([]);
+    setEducation(EMPTY_CV.totalEdu[0])
+    setExperience(EMPTY_CV.totalExp[0])
   };
 
   return (

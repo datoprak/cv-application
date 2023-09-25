@@ -2,6 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Form, Input, DatePicker, Checkbox } from "antd";
 import "../styles/GIEduExp.css";
+import { EMPTY_CV } from "../util/exampleCVs";
 
 export default function Education({
   education,
@@ -15,6 +16,7 @@ export default function Education({
   const onFinish = values => {
     let { school, degree, startDate, endDate, location } = values;
     endDate = check ? "present" : endDate.year();
+    values = { ...values, endDate };
     setEducation(prevEdu => {
       return {
         ...prevEdu,
@@ -45,14 +47,7 @@ export default function Education({
       setTotalEdu(copyTotal);
     }
     setIsEditMode(false);
-    setEducation({
-      id: "",
-      school: "",
-      degree: "",
-      startDate: "",
-      endDate: "",
-      location: "",
-    });
+    setEducation(EMPTY_CV.totalEdu[0]);
   };
 
   const deleteEntry = () => {
@@ -62,20 +57,10 @@ export default function Education({
     copyTotal.splice(index, 1);
     setTotalEdu(copyTotal);
     setIsEditMode(false);
-    setEducation({
-      id: "",
-      school: "",
-      degree: "",
-      startDate: "",
-      endDate: "",
-      location: "",
-    });
+    setEducation(EMPTY_CV.totalEdu[0]);
   };
 
-  const cancelEntry = () => {
-    setIsEditMode(false);
-  };
-
+  const cancelEntry = () => setIsEditMode(false);
   const handleEdit = id => {
     const editEdu = totalEdu.find(edu => edu.id === id);
     setEducation(editEdu);

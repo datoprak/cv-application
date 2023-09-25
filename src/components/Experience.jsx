@@ -2,6 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Form, Input, DatePicker, Checkbox } from "antd";
 import "../styles/GIEduExp.css";
+import { EMPTY_CV } from "../util/exampleCVs";
 
 export default function Experience({
   experience,
@@ -47,15 +48,7 @@ export default function Experience({
       setTotalExp(copyTotal);
     }
     setIsEditMode(false);
-    setExperience({
-      id: "",
-      company: "",
-      title: "",
-      startDate: "",
-      endDate: "",
-      location: "",
-      description: "",
-    });
+    setExperience(EMPTY_CV.totalExp[0]);
   };
 
   const deleteEntry = () => {
@@ -65,20 +58,10 @@ export default function Experience({
     copyTotal.splice(index, 1);
     setTotalExp(copyTotal);
     setIsEditMode(false);
-    setExperience({
-      id: "",
-      company: "",
-      title: "",
-      startDate: "",
-      endDate: "",
-      location: "",
-      description: "",
-    });
+    setExperience(EMPTY_CV.totalExp[0]);
   };
 
-  const cancelEntry = () => {
-    setIsEditMode(false);
-  };
+  const cancelEntry = () => setIsEditMode(false);
 
   const handleEdit = id => {
     let editExp = totalExp.find(exp => exp.id === id);

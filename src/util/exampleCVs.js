@@ -30,4 +30,35 @@ const EXAMPLE_CV = {
   ],
 };
 
-export default EXAMPLE_CV
+const EMPTY_CV = {
+  person: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+  },
+  totalEdu: [
+    {
+      id: "",
+      school: "",
+      degree: "",
+      startDate: "",
+      endDate: "",
+      location: "",
+    },
+  ],
+  totalExp: [
+    {
+      id: "",
+      company: "",
+      title: "",
+      startDate: "",
+      endDate: "",
+      location: "",
+      description: "",
+    },
+  ],
+};
+
+export { EXAMPLE_CV, EMPTY_CV };
