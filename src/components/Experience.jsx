@@ -86,7 +86,10 @@ export default function Experience({
 
   return (
     <section className="experience">
-      <h2>Experience</h2>
+      <div className="entry-header">
+        <span className="material-symbols-outlined">work</span>
+        <h2>Experience</h2>
+      </div>
       {isEditMode ? (
         <Form
           name="exp-form"
@@ -179,17 +182,22 @@ export default function Experience({
           </Form.Item>
           <div className="edit-mode-btns">
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button className="antbtn" type="primary" htmlType="submit">
                 SAVE
               </Button>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" onClick={cancelEntry}>
+              <Button className="antbtn" type="primary" onClick={cancelEntry}>
                 CANCEL
               </Button>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" danger onClick={deleteEntry}>
+              <Button
+                className="antbtn"
+                type="primary"
+                danger
+                onClick={deleteEntry}
+              >
                 DELETE
               </Button>
             </Form.Item>
@@ -200,17 +208,24 @@ export default function Experience({
           {totalExp.length > 0 &&
             totalExp.map(exp => {
               return (
-                <div key={exp.id}>
-                  <div className="school-name">
-                    {exp.title} at {exp.company}
-                  </div>
-                  <Button type="primary" onClick={() => handleEdit(exp.id)}>
-                    EDIT
+                <div key={exp.id} className="exp-entries-title">
+                  <div className="school-name">{exp.company}</div>
+                  <Button
+                    className="antbtn"
+                    type="primary"
+                    shape="circle"
+                    onClick={() => handleEdit(exp.id)}
+                  >
+                    <span className="material-symbols-outlined">edit</span>
                   </Button>
                 </div>
               );
             })}
-          <Button type="primary" onClick={() => setIsEditMode(!isEditMode)}>
+          <Button
+            className="antbtn"
+            type="primary"
+            onClick={() => setIsEditMode(!isEditMode)}
+          >
             ADD
           </Button>
         </>

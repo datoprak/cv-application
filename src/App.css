@@ -47,7 +47,7 @@ main {
   gap: 8px;
 }
 
-.ant-btn {
+.antbtn {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -77,11 +77,28 @@ main {
 .experience {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   background-color: #f8fafc;
   padding: 16px;
   border-radius: 16px;
   box-shadow: 8px 8px 8px 0px #888888;
+}
+
+.entry-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.entry-header > span {
+  font-weight: 700;
+}
+
+.edu-entries-title,
+.exp-entries-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .cv {

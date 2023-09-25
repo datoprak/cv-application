@@ -81,7 +81,10 @@ export default function Education({
 
   return (
     <section className="education">
-      <h2>Education</h2>
+      <div className="entry-header">
+        <span className="material-symbols-outlined">school</span>
+        <h2>Education</h2>
+      </div>
       {isEditMode ? (
         <Form
           name="edu-form"
@@ -162,17 +165,22 @@ export default function Education({
           </Form.Item>
           <div className="edit-mode-btns">
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button className="antbtn" type="primary" htmlType="submit">
                 SAVE
               </Button>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" onClick={cancelEntry}>
+              <Button className="antbtn" type="primary" onClick={cancelEntry}>
                 CANCEL
               </Button>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" danger onClick={deleteEntry}>
+              <Button
+                className="antbtn"
+                type="primary"
+                danger
+                onClick={deleteEntry}
+              >
                 DELETE
               </Button>
             </Form.Item>
@@ -183,15 +191,24 @@ export default function Education({
           {totalEdu.length > 0 &&
             totalEdu.map(edu => {
               return (
-                <div key={edu.id}>
+                <div key={edu.id} className="edu-entries-title">
                   <div className="school-name">{edu.school}</div>
-                  <Button type="primary" onClick={() => handleEdit(edu.id)}>
-                    EDIT
+                  <Button
+                    className="antbtn"
+                    type="primary"
+                    shape="circle"
+                    onClick={() => handleEdit(edu.id)}
+                  >
+                    <span className="material-symbols-outlined">edit</span>
                   </Button>
                 </div>
               );
             })}
-          <Button type="primary" onClick={() => setIsEditMode(!isEditMode)}>
+          <Button
+            className="antbtn"
+            type="primary"
+            onClick={() => setIsEditMode(!isEditMode)}
+          >
             ADD
           </Button>
         </>

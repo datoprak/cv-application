@@ -13,7 +13,10 @@ export default function GeneralInfo({ person, setPerson }) {
 
   return (
     <section className="general-info">
-      <h2>General Info</h2>
+      <div className="entry-header">
+        <span className="material-symbols-outlined">person</span>
+        <h2>General Info</h2>
+      </div>
       {isEditMode ? (
         <>
           <Form
@@ -99,7 +102,7 @@ export default function GeneralInfo({ person, setPerson }) {
                 span: 16,
               }}
             >
-              <Button type="primary" htmlType="submit">
+              <Button className="antbtn" type="primary" htmlType="submit">
                 SAVE
               </Button>
             </Form.Item>
@@ -112,8 +115,8 @@ export default function GeneralInfo({ person, setPerson }) {
           <div className="email">{person.email}</div>
           <div className="phone">{person.phone}</div>
           <div className="address">{person.address}</div>
-          <Button type="primary" onClick={() => setIsEditMode(true)}>
-            EDIT
+          <Button className="antbtn" type="primary" onClick={() => setIsEditMode(true)}>
+            <span className="material-symbols-outlined">edit</span>
           </Button>
         </>
       )}
