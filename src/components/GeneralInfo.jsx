@@ -3,7 +3,7 @@ import { Button, Form, Input } from "antd";
 import "../styles/GIEduExp.css"
 
 export default function GeneralInfo({ person, setPerson }) {
-  const [isEditMode, setIsEditMode] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
   const fullName = `${person.firstName} ${person.lastName}`;
 
   const onFinish = values => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button, Form, Input, DatePicker } from "antd";
-import "../styles/GIEduExp.css"
+import { Button, Form, Input, DatePicker, Checkbox } from "antd";
+import "../styles/GIEduExp.css";
 
 export default function Education({
   education,
@@ -10,16 +10,18 @@ export default function Education({
   setTotalEdu,
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [check, setCheck] = useState(false);
 
   const onFinish = values => {
-    const { school, degree, startDate, endDate, location } = values;
+    let { school, degree, startDate, endDate, location } = values;
+    endDate = check ? "present" : endDate.year();
     setEducation(prevEdu => {
       return {
         ...prevEdu,
         school,
         degree,
         startDate: startDate.year(),
-        endDate: endDate.year(),
+        endDate,
         location,
       };
     });
@@ -79,6 +81,9 @@ export default function Education({
     setEducation(editEdu);
     setIsEditMode(true);
   };
+
+  const checkCurrent = e =>
+    e.target.checked ? setCheck(true) : setCheck(false);
 
   return (
     <section className="education">
@@ -145,12 +150,15 @@ export default function Education({
             name="endDate"
             rules={[
               {
-                required: true,
+                required: !check,
                 message: "Please input your end date of education!",
               },
             ]}
           >
-            <DatePicker picker="year" />
+            <DatePicker picker="year" disabled={check} />
+          </Form.Item>
+          <Form.Item label="Present" name="check">
+            <Checkbox onChange={checkCurrent}></Checkbox>
           </Form.Item>
           <Form.Item
             label="Location"

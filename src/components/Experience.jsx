@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button, Form, Input, DatePicker } from "antd";
-import "../styles/GIEduExp.css"
+import { Button, Form, Input, DatePicker, Checkbox } from "antd";
+import "../styles/GIEduExp.css";
 
 export default function Experience({
   experience,
@@ -10,18 +10,19 @@ export default function Experience({
   setTotalExp,
 }) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [check, setCheck] = useState(false);
 
   const onFinish = values => {
-    const { company, title, startDate, endDate, location, description } =
-      values;
-    console.log(startDate);
+    let { company, title, startDate, endDate, location, description } = values;
+    endDate = check ? "present" : endDate.year();
+    values = { ...values, endDate };
     setExperience(prevEdu => {
       return {
         ...prevEdu,
         company,
         title,
         startDate: startDate.year(),
-        endDate: endDate.year(),
+        endDate,
         location,
         description,
       };
@@ -84,6 +85,9 @@ export default function Experience({
     setExperience(editExp);
     setIsEditMode(true);
   };
+
+  const checkCurrent = e =>
+    e.target.checked ? setCheck(true) : setCheck(false);
 
   return (
     <section className="experience">
@@ -150,13 +154,18 @@ export default function Experience({
             name="endDate"
             rules={[
               {
-                required: true,
+                required: !check,
                 message: "Please input your end date of education!",
               },
             ]}
           >
-            <DatePicker picker="year" />
+            <DatePicker picker="year" disabled={check} />
           </Form.Item>
+
+          <Form.Item label="Present" name="check">
+            <Checkbox onChange={checkCurrent}></Checkbox>
+          </Form.Item>
+
           <Form.Item
             label="Location"
             name="location"
