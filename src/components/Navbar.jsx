@@ -2,6 +2,7 @@ import { Button } from "antd";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useState } from "react";
+import "../styles/Navbar.css"
 
 const Navbar = ({ clearCv, loadExample }) => {
   const [loading, setLoading] = useState(false);

@@ -1,4 +1,5 @@
 import { Divider } from "antd";
+import "../styles/Cv.css"
 
 export default function Cv({ person, totalEdu, totalExp }) {
   const fullName = `${person.firstName} ${person.lastName}`;
@@ -36,8 +37,8 @@ export default function Cv({ person, totalEdu, totalExp }) {
         {totalEdu.length > 0 &&
           totalEdu.map(edu => {
             return (
-              <>
-                <div className="edu" key={edu.id}>
+              <div key={edu.id}>
+                <div className="edu">
                   <div className="edu-left-side">
                     <div className="date">
                       {getYear(edu.startDate)}-{getYear(edu.endDate)}
@@ -50,7 +51,7 @@ export default function Cv({ person, totalEdu, totalExp }) {
                   </div>
                 </div>
                 <Divider></Divider>
-              </>
+              </div>
             );
           })}
       </div>
@@ -63,8 +64,8 @@ export default function Cv({ person, totalEdu, totalExp }) {
         {totalExp.length > 0 &&
           totalExp.map(exp => {
             return (
-              <>
-                <div className="exp" key={exp.id}>
+              <div key={exp.id}>
+                <div className="exp">
                   <div className="exp-left-side">
                     <div className="date">
                       {getYear(exp.startDate)} - {getYear(exp.endDate)}
@@ -72,12 +73,14 @@ export default function Cv({ person, totalEdu, totalExp }) {
                     <div className="location">{exp.location}</div>
                   </div>
                   <div className="exp-right-side">
-                    <div className="company">{exp.title} at {exp.company}</div>
+                    <div className="company">
+                      {exp.title} at {exp.company}
+                    </div>
                     <div className="description">{exp.description}</div>
                   </div>
                 </div>
                 <Divider></Divider>
-              </>
+              </div>
             );
           })}
       </div>

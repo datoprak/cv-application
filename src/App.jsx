@@ -5,7 +5,7 @@ import Education from "./components/Education";
 import Experience from "./components/Experience";
 import Cv from "./components/Cv";
 import Navbar from "./components/Navbar";
-import "./App.css";
+import "./styles/App.css";
 
 const EXAMPLE_CV = {
   person: {

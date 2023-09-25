@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Form, Input } from "antd";
+import "../styles/GIEduExp.css"
 
 export default function GeneralInfo({ person, setPerson }) {
   const [isEditMode, setIsEditMode] = useState(true);
+  const fullName = `${person.firstName} ${person.lastName}`;
 
   const onFinish = values => {
     setPerson(prevPerson => {
@@ -110,12 +112,16 @@ export default function GeneralInfo({ person, setPerson }) {
         </>
       ) : (
         <>
-          <div className="fname">{person.firstName}</div>
-          <div className="lname">{person.lastName}</div>
+          <div className="fullName">{fullName}</div>
           <div className="email">{person.email}</div>
           <div className="phone">{person.phone}</div>
           <div className="address">{person.address}</div>
-          <Button className="antbtn" type="primary" onClick={() => setIsEditMode(true)}>
+          <Button
+            className="antbtn ginfo-edit"
+            type="primary"
+            shape="circle"
+            onClick={() => setIsEditMode(true)}
+          >
             <span className="material-symbols-outlined">edit</span>
           </Button>
         </>
