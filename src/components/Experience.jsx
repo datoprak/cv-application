@@ -202,7 +202,7 @@ export default function Experience({
             totalExp.map(exp => {
               return (
                 <div key={exp.id} className="exp-entries-title">
-                  <div className="school-name">{exp.company}</div>
+                  <div className="company-name">&#x2022; {exp.company}</div>
                   <Button
                     className="antbtn"
                     type="primary"

@@ -186,7 +186,7 @@ export default function Education({
             totalEdu.map(edu => {
               return (
                 <div key={edu.id} className="edu-entries-title">
-                  <div className="school-name">{edu.school}</div>
+                  <div className="school-name">&#x2022; {edu.school}</div>
                   <Button
                     className="antbtn"
                     type="primary"
